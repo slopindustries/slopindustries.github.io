@@ -18,16 +18,21 @@ const renderRepositories = (payload) => {
     return;
   }
 
-  listNode.innerHTML = repos
+  const sortedRepos = [...repos].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+  const maxStars = Math.max(...sortedRepos.map((repo) => repo.stars || 0), 1);
+
+  listNode.innerHTML = sortedRepos
     .map(
       (repo) => `
       <li class="repo-item">
-        <div class="repo-title">
+        <div class="repo-top">
           <a href="${repo.url}" target="_blank" rel="noreferrer noopener">${repo.name}</a>
-          ${repo.language ? `<span class="repo-language">${repo.language}</span>` : ""}
+          <span class="repo-stars">★ ${repo.stars || 0}</span>
         </div>
-        <p class="repo-description">${repo.description || "No description available."}</p>
-        <p class="repo-meta">★ ${repo.stars} · Updated ${formatDate(repo.updated_at)}</p>
+        <div class="repo-bar" aria-hidden="true">
+          <span style="width: ${Math.max(8, Math.round(((repo.stars || 0) / maxStars) * 100))}%"></span>
+        </div>
+        <p class="repo-meta">${repo.language || "Unknown"} · Updated ${formatDate(repo.updated_at)}</p>
       </li>
     `,
     )
