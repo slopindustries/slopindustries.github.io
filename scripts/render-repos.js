@@ -5,16 +5,16 @@ const formatDate = (raw) => {
   if (!raw) return "-";
   const parsed = new Date(raw);
   if (Number.isNaN(parsed.getTime())) return raw;
-  return parsed.toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+  return parsed.toLocaleString("en-US", { timeZone: "Asia/Seoul" });
 };
 
 const renderRepositories = (payload) => {
   const repos = Array.isArray(payload.repositories) ? payload.repositories : [];
   const generatedAt = payload.generated_at || "";
-  updatedNode.textContent = `마지막 갱신: ${formatDate(generatedAt)}`;
+  updatedNode.textContent = `Last updated: ${formatDate(generatedAt)}`;
 
   if (repos.length === 0) {
-    listNode.innerHTML = `<li class="empty">표시할 공개 저장소가 없습니다.</li>`;
+    listNode.innerHTML = `<li class="empty">No public repositories to display.</li>`;
     return;
   }
 
@@ -26,8 +26,8 @@ const renderRepositories = (payload) => {
           <a href="${repo.url}" target="_blank" rel="noreferrer noopener">${repo.name}</a>
           ${repo.language ? `<span class="repo-language">${repo.language}</span>` : ""}
         </div>
-        <p class="repo-description">${repo.description || "설명이 없습니다."}</p>
-        <p class="repo-meta">★ ${repo.stars} · 마지막 업데이트 ${formatDate(repo.updated_at)}</p>
+        <p class="repo-description">${repo.description || "No description available."}</p>
+        <p class="repo-meta">★ ${repo.stars} · Updated ${formatDate(repo.updated_at)}</p>
       </li>
     `,
     )
@@ -43,6 +43,6 @@ fetch("./data/repos.json", { cache: "no-store" })
   })
   .then((payload) => renderRepositories(payload))
   .catch(() => {
-    listNode.innerHTML = `<li class="empty">저장소 정보를 불러오지 못했습니다.</li>`;
-    updatedNode.textContent = "마지막 갱신: 확인 불가";
+    listNode.innerHTML = `<li class="empty">Failed to load repository data.</li>`;
+    updatedNode.textContent = "Last updated: Unavailable";
   });
