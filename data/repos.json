@@ -1,6 +1,23 @@
 {
   "org": "slopindustries",
-  "generated_at": null,
-  "count": 0,
-  "repositories": []
+  "generated_at": "2026-08-20T01:42:37.612405+00:00",
+  "count": 2,
+  "repositories": [
+    {
+      "name": "cosmai",
+      "description": "Evidence-bearing data ingestion and normalization experiment for beauty R&D signal intelligence. Currently P0-A.",
+      "url": "https://github.com/slopindustries/cosmai",
+      "language": "Python",
+      "stars": 0,
+      "updated_at": "2026-08-18T07:43:35Z"
+    },
+    {
+      "name": "slopindustries.github.io",
+      "description": "",
+      "url": "https://github.com/slopindustries/slopindustries.github.io",
+      "language": "Python",
+      "stars": 0,
+      "updated_at": "2026-08-19T15:43:25Z"
+    }
+  ]
 }
